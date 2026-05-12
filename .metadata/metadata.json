@@ -1,0 +1,17 @@
+{
+  "name": "Less Map Markers",
+  "id": "lessmapmarkers",
+  "version": "0.1.0",
+  "game_id": "eu5",
+  "supported_game_version": "1.2.*",
+  "short_description": "Starter scaffold for the Less Map Markers EU5 workshop mod.",
+  "tags": [
+    "Events",
+    "Fixes"
+  ],
+  "relationships": [],
+  "game_custom_data": {
+    "multiplayer_synchronized": true,
+    "replace_paths": []
+  }
+}

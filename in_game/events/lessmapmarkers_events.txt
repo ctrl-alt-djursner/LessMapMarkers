@@ -1,0 +1,474 @@
+namespace = lessmapmarkers
+
+lessmapmarkers.1 = {
+	hidden = yes
+	type = country_event
+	trigger = {
+		num_characters > 250
+	}
+	immediate = {
+		# Reset character tags and working variables every pulse.
+		every_character = {
+			remove_variable = culltarget_heathen
+			remove_variable = culltarget_heretic
+			remove_variable = culltarget_uncultured
+			remove_variable = culltarget_old
+			remove_variable = culltarget_merc
+			remove_variable = culltarget_dynasty
+			remove_variable = culltarget_other
+			remove_variable = culltarget_crown
+			remove_variable = culltarget_young
+			remove_variable = culltarget_minor
+			remove_variable = culltarget_last_resort
+		}
+		remove_variable = lessmapmarkers_overflow
+		remove_variable = lessmapmarkers_kill_count
+		# Cull the exact overflow so the country returns to the target court size.
+		set_variable = { name = lessmapmarkers_overflow value = num_characters }
+		change_variable = { name = lessmapmarkers_overflow add = -250 }
+		set_variable = { name = lessmapmarkers_kill_count value = var:lessmapmarkers_overflow }
+		# Heathens
+		if = {
+			limit = {
+				modifier:tolerance_heathen < 0
+			}
+			every_character = {
+				limit = {
+					is_alive = yes
+					is_adult = yes
+					age_in_years >= 26
+					is_ruler = no
+					is_heir = no
+					is_consort = no
+					is_regent = no
+					is_artist = no
+					is_explorer = no
+					is_general = no
+					is_admiral = no
+					in_cabinet = no
+					OR = {
+						is_courtier = yes
+						dynasty ?= root.ruler.dynasty
+					}
+					NOT = { is_close_relative = root.ruler }
+					NOT = { is_close_relative = root.heir }
+					NOT = { is_sibling_of = root.ruler }
+					NOT = { is_sibling_of = root.heir }
+					NOT = { is_child_of = root.ruler }
+					NOT = { is_child_of = root.heir }
+					NOT = { is_parent_of = root.ruler }
+					NOT = { is_parent_of = root.heir }
+					NOT = { is_spouse_of = root.ruler }
+					NOT = { is_spouse_of = root.heir }
+					NOT = { religion.group = root.religion.group }
+				}
+				set_variable = culltarget_heathen
+			}
+		}
+		# Heretics
+		if = {
+			limit = {
+				modifier:tolerance_heretic < 0
+			}
+			every_character = {
+				limit = {
+					is_alive = yes
+					is_adult = yes
+					age_in_years >= 26
+					is_ruler = no
+					is_heir = no
+					is_consort = no
+					is_regent = no
+					is_artist = no
+					is_explorer = no
+					is_general = no
+					is_admiral = no
+					in_cabinet = no
+					OR = {
+						is_courtier = yes
+						dynasty ?= root.ruler.dynasty
+					}
+					NOT = { is_close_relative = root.ruler }
+					NOT = { is_close_relative = root.heir }
+					NOT = { is_sibling_of = root.ruler }
+					NOT = { is_sibling_of = root.heir }
+					NOT = { is_child_of = root.ruler }
+					NOT = { is_child_of = root.heir }
+					NOT = { is_parent_of = root.ruler }
+					NOT = { is_parent_of = root.heir }
+					NOT = { is_spouse_of = root.ruler }
+					NOT = { is_spouse_of = root.heir }
+					religion.group = root.religion.group
+					NOT = { religion = root.religion }
+				}
+				set_variable = culltarget_heretic
+			}
+		}
+		# Unaccepted cultures
+		every_character = {
+			limit = {
+				is_alive = yes
+				is_adult = yes
+				age_in_years >= 26
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				is_regent = no
+				is_artist = no
+				is_explorer = no
+				is_general = no
+				is_admiral = no
+				in_cabinet = no
+				OR = {
+					is_courtier = yes
+					dynasty ?= root.ruler.dynasty
+				}
+				NOT = { is_close_relative = root.ruler }
+				NOT = { is_close_relative = root.heir }
+				NOT = { is_sibling_of = root.ruler }
+				NOT = { is_sibling_of = root.heir }
+				NOT = { is_child_of = root.ruler }
+				NOT = { is_child_of = root.heir }
+				NOT = { is_parent_of = root.ruler }
+				NOT = { is_parent_of = root.heir }
+				NOT = { is_spouse_of = root.ruler }
+				NOT = { is_spouse_of = root.heir }
+				culture = {
+					NOT = { is_tolerated_in = ROOT }
+					NOT = { is_primary_or_accepted_in = ROOT }
+				}
+			}
+			set_variable = culltarget_uncultured
+		}
+		# Elderly or effectively infertile adults
+		every_character = {
+			limit = {
+				is_alive = yes
+				is_adult = yes
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				is_regent = no
+				is_artist = no
+				is_explorer = no
+				is_general = no
+				is_admiral = no
+				in_cabinet = no
+				OR = {
+					is_courtier = yes
+					dynasty ?= root.ruler.dynasty
+				}
+				NOT = { is_close_relative = root.ruler }
+				NOT = { is_close_relative = root.heir }
+				NOT = { is_sibling_of = root.ruler }
+				NOT = { is_sibling_of = root.heir }
+				NOT = { is_child_of = root.ruler }
+				NOT = { is_child_of = root.heir }
+				NOT = { is_parent_of = root.ruler }
+				NOT = { is_parent_of = root.heir }
+				NOT = { is_spouse_of = root.ruler }
+				NOT = { is_spouse_of = root.heir }
+				OR = {
+					age_in_years > 60
+					AND = {
+						age_in_years > 45
+						fertility < 10
+					}
+				}
+			}
+			set_variable = culltarget_old
+		}
+		# Unemployed mercenary leaders
+		every_character = {
+			limit = {
+				is_alive = yes
+				is_adult = yes
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				is_regent = no
+				is_artist = no
+				is_explorer = no
+				is_general = no
+				is_admiral = no
+				in_cabinet = no
+				OR = {
+					is_courtier = yes
+					dynasty ?= root.ruler.dynasty
+				}
+				NOT = { is_close_relative = root.ruler }
+				NOT = { is_close_relative = root.heir }
+				NOT = { is_sibling_of = root.ruler }
+				NOT = { is_sibling_of = root.heir }
+				NOT = { is_child_of = root.ruler }
+				NOT = { is_child_of = root.heir }
+				NOT = { is_parent_of = root.ruler }
+				NOT = { is_parent_of = root.heir }
+				NOT = { is_spouse_of = root.ruler }
+				NOT = { is_spouse_of = root.heir }
+				is_mercenary_leader = yes
+			}
+			set_variable = culltarget_merc
+		}
+		# Adult dynasty members outside the immediate ruling family.
+		every_character = {
+			limit = {
+				is_alive = yes
+				is_adult = yes
+				age_in_years >= 30
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				is_regent = no
+				is_artist = no
+				is_explorer = no
+				is_general = no
+				is_admiral = no
+				in_cabinet = no
+				dynasty ?= root.ruler.dynasty
+				NOT = { is_close_relative = root.ruler }
+				NOT = { is_close_relative = root.heir }
+				NOT = { is_sibling_of = root.ruler }
+				NOT = { is_sibling_of = root.heir }
+				NOT = { is_child_of = root.ruler }
+				NOT = { is_child_of = root.heir }
+				NOT = { is_parent_of = root.ruler }
+				NOT = { is_parent_of = root.heir }
+				NOT = { is_spouse_of = root.ruler }
+				NOT = { is_spouse_of = root.heir }
+			}
+			set_variable = culltarget_dynasty
+		}
+		# Generic adult courtiers and hangers-on, but leave the ruling dynasty
+		# to its own category so children and young adults survive longer.
+		every_character = {
+			limit = {
+				is_alive = yes
+				is_adult = yes
+				age_in_years >= 26
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				is_regent = no
+				is_artist = no
+				is_explorer = no
+				is_general = no
+				is_admiral = no
+				in_cabinet = no
+				is_courtier = yes
+				NOT = { dynasty ?= root.ruler.dynasty }
+				NOT = { is_close_relative = root.ruler }
+				NOT = { is_close_relative = root.heir }
+				NOT = { is_sibling_of = root.ruler }
+				NOT = { is_sibling_of = root.heir }
+				NOT = { is_child_of = root.ruler }
+				NOT = { is_child_of = root.heir }
+				NOT = { is_parent_of = root.ruler }
+				NOT = { is_parent_of = root.heir }
+				NOT = { is_spouse_of = root.ruler }
+				NOT = { is_spouse_of = root.heir }
+				NOT = { has_estate = estate_type:crown_estate }
+			}
+			set_variable = culltarget_other
+		}
+		# True last resort: lower-priority crown-estate adults only.
+		every_character = {
+			limit = {
+				is_alive = yes
+				is_adult = yes
+				age_in_years >= 35
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				is_regent = no
+				is_artist = no
+				is_explorer = no
+				is_general = no
+				is_admiral = no
+				in_cabinet = no
+				OR = {
+					is_courtier = yes
+					dynasty ?= root.ruler.dynasty
+				}
+				has_estate = estate_type:crown_estate
+				NOT = { is_close_relative = root.ruler }
+				NOT = { is_close_relative = root.heir }
+				NOT = { is_sibling_of = root.ruler }
+				NOT = { is_sibling_of = root.heir }
+				NOT = { is_child_of = root.ruler }
+				NOT = { is_child_of = root.heir }
+				NOT = { is_parent_of = root.ruler }
+				NOT = { is_parent_of = root.heir }
+				NOT = { is_spouse_of = root.ruler }
+				NOT = { is_spouse_of = root.heir }
+			}
+			set_variable = culltarget_crown
+		}
+		# Only touch young adults when a save has already ballooned badly.
+		every_character = {
+			limit = {
+				ROOT = { num_characters > 1200 }
+				is_alive = yes
+				is_adult = yes
+				age_in_years < 26
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				is_regent = no
+				is_artist = no
+				is_explorer = no
+				is_general = no
+				is_admiral = no
+				in_cabinet = no
+				is_courtier = yes
+				NOT = { dynasty ?= root.ruler.dynasty }
+				NOT = { is_close_relative = root.ruler }
+				NOT = { is_close_relative = root.heir }
+				NOT = { is_sibling_of = root.ruler }
+				NOT = { is_sibling_of = root.heir }
+				NOT = { is_child_of = root.ruler }
+				NOT = { is_child_of = root.heir }
+				NOT = { is_parent_of = root.ruler }
+				NOT = { is_parent_of = root.heir }
+				NOT = { is_spouse_of = root.ruler }
+				NOT = { is_spouse_of = root.heir }
+			}
+			set_variable = culltarget_young
+		}
+		# Children are protected in normal play and only become candidates in
+		# truly broken saves, never for the ruling dynasty.
+		every_character = {
+			limit = {
+				ROOT = { num_characters > 3000 }
+				is_alive = yes
+				is_adult = no
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				is_regent = no
+				is_artist = no
+				is_explorer = no
+				is_general = no
+				is_admiral = no
+				in_cabinet = no
+				is_courtier = yes
+				NOT = { dynasty ?= root.ruler.dynasty }
+				NOT = { is_close_relative = root.ruler }
+				NOT = { is_close_relative = root.heir }
+				NOT = { is_sibling_of = root.ruler }
+				NOT = { is_sibling_of = root.heir }
+				NOT = { is_child_of = root.ruler }
+				NOT = { is_child_of = root.heir }
+				NOT = { is_parent_of = root.ruler }
+				NOT = { is_parent_of = root.heir }
+				NOT = { is_spouse_of = root.ruler }
+				NOT = { is_spouse_of = root.heir }
+			}
+			set_variable = culltarget_minor
+		}
+		# Final fallback: still preserve rulers, heirs, consorts, regents,
+		# cabinet members, commanders, explorers, and artists, but allow the
+		# cap to hold when an unusual court is mostly protected by softer rules.
+		every_character = {
+			limit = {
+				is_alive = yes
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				is_regent = no
+				is_artist = no
+				is_explorer = no
+				is_general = no
+				is_admiral = no
+				in_cabinet = no
+				OR = {
+					is_courtier = yes
+					dynasty ?= root.ruler.dynasty
+				}
+				NOT = { has_variable = culltarget_heathen }
+				NOT = { has_variable = culltarget_heretic }
+				NOT = { has_variable = culltarget_uncultured }
+				NOT = { has_variable = culltarget_old }
+				NOT = { has_variable = culltarget_merc }
+				NOT = { has_variable = culltarget_dynasty }
+				NOT = { has_variable = culltarget_other }
+				NOT = { has_variable = culltarget_crown }
+				NOT = { has_variable = culltarget_young }
+				NOT = { has_variable = culltarget_minor }
+			}
+			set_variable = culltarget_last_resort
+		}
+		ordered_character = {
+			limit = {
+				OR = {
+					has_variable = culltarget_heathen
+					has_variable = culltarget_heretic
+					has_variable = culltarget_uncultured
+					has_variable = culltarget_old
+					has_variable = culltarget_merc
+					has_variable = culltarget_dynasty
+					has_variable = culltarget_other
+					has_variable = culltarget_crown
+					has_variable = culltarget_young
+					has_variable = culltarget_minor
+					has_variable = culltarget_last_resort
+				}
+			}
+			order_by = {
+				value = total_abilities
+				multiply = -1
+				if = {
+					limit = { has_variable = culltarget_heathen }
+					add = 2000
+				}
+				if = {
+					limit = { has_variable = culltarget_heretic }
+					add = 1700
+				}
+				if = {
+					limit = { has_variable = culltarget_uncultured }
+					add = 1400
+				}
+				if = {
+					limit = { has_variable = culltarget_old }
+					add = 1100
+				}
+				if = {
+					limit = { has_variable = culltarget_merc }
+					add = 900
+				}
+				if = {
+					limit = { has_variable = culltarget_dynasty }
+					add = 700
+				}
+				if = {
+					limit = { has_variable = culltarget_other }
+					add = 300
+				}
+				if = {
+					limit = { has_variable = culltarget_crown }
+					add = 100
+				}
+				if = {
+					limit = { has_variable = culltarget_young }
+					add = -500
+				}
+				if = {
+					limit = { has_variable = culltarget_minor }
+					add = -1200
+				}
+				if = {
+					limit = { has_variable = culltarget_last_resort }
+					add = -2500
+				}
+			}
+			max = var:lessmapmarkers_kill_count
+			kill_character_silently = {
+				target = this
+				reason = vanished
+			}
+		}
+		remove_variable = lessmapmarkers_overflow
+		remove_variable = lessmapmarkers_kill_count
+	}
+}

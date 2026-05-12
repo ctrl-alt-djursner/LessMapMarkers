@@ -1,0 +1,87 @@
+on_game_start = {
+	on_actions = {
+		delay = { days = 1 }
+		lessmapmarkers_startup_sweep
+	}
+}
+
+yearly_country_pulse = {
+	on_actions = {
+		lessmapmarkers_yearly_sweep
+	}
+}
+
+on_character_birth = {
+	on_actions = {
+		lessmapmarkers_birth_cleanup
+	}
+}
+
+on_character_created = {
+	on_actions = {
+		lessmapmarkers_created_cleanup
+	}
+}
+
+on_character_moved_country = {
+	on_actions = {
+		lessmapmarkers_moved_cleanup
+	}
+}
+
+lessmapmarkers_startup_sweep = {
+	effect = {
+		every_country = {
+			limit = {
+				num_characters > 250
+			}
+			trigger_event_silently = lessmapmarkers.1
+		}
+	}
+}
+
+lessmapmarkers_yearly_sweep = {
+	trigger = {
+		num_characters > 250
+	}
+
+	events = {
+		lessmapmarkers.1
+	}
+}
+
+lessmapmarkers_birth_cleanup = {
+	trigger = {
+		num_characters > 250
+	}
+
+	events = {
+		lessmapmarkers.1
+	}
+}
+
+lessmapmarkers_created_cleanup = {
+	effect = {
+		owner ?= {
+			if = {
+				limit = {
+					num_characters > 250
+				}
+				trigger_event_silently = lessmapmarkers.1
+			}
+		}
+	}
+}
+
+lessmapmarkers_moved_cleanup = {
+	effect = {
+		scope:target = {
+			if = {
+				limit = {
+					num_characters > 250
+				}
+				trigger_event_silently = lessmapmarkers.1
+			}
+		}
+	}
+}
