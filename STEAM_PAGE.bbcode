@@ -2,8 +2,22 @@
 
 [b]Up to date for game version 1.2.x[/b]
 
-Less Map Markers is the starter scaffold for an EU5 workshop mod.
+Less Map Markers reduces map-marker clutter by hiding most non-player country markers while keeping your own markers visible.
 
-[h2]Scaffold[/h2]
+[h2]Behavior[/h2]
 
-This mod folder mirrors the previous project's structure so the new build can start from the same base.
+The mod filters major map-marker setting categories through the in-game GUI layer:
+
+[list]
+[*]City markers
+[*]Market markers
+[*]Raw goods markers
+[*]Import/export markers
+[*]Blocked vision markers
+[*]Building, army, navy, and conquistador construction markers
+[*]Fort and toll markers
+[/list]
+
+These markers remain visible when they belong to your country and are hidden when they belong to other countries.
+
+The mod avoids gameplay script changes and does not alter unit, combat, siege, or cabinet-action logic.

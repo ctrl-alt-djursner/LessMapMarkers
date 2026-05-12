@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "game_id": "eu5",
   "supported_game_version": "1.2.*",
-  "short_description": "Starter scaffold for the Less Map Markers EU5 workshop mod.",
+  "short_description": "Up to date for game version 1.2.x. Less Map Markers hides most non-player country map markers while keeping the player's own city, market, raw goods, trade, blocked vision, construction, fort, and toll markers visible.",
   "tags": [
-    "Events",
+    "Graphics",
     "Fixes"
   ],
   "relationships": [],
