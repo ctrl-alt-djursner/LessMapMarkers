@@ -74,7 +74,7 @@ construction_marker = {
 	size = { 50 50 }
 	position = { 0 2 }
 	datacontext = "[BuildingConstructionMarker.GetConstruction]"
-	visible = "[BuildingConstructionMarker.GetConstruction.GetCountry.IsPlayer]"
+	visible = "[BuildingConstructionMarker.GetConstruction.GetLocation.IsPlayerLocation]"
 	allow_outside = yes
 }
 
@@ -84,7 +84,7 @@ construction_marker = {
 	size = { 50 50 }
 	position = { 0 2 }
 	datacontext = "[ArmyConstructionMarker.GetConstruction]"
-	visible = "[ArmyConstructionMarker.GetConstruction.GetCountry.IsPlayer]"
+	visible = "[ArmyConstructionMarker.GetConstruction.GetLocation.IsPlayerLocation]"
 }
 
 ### NAVY CONSTRUCTION
@@ -93,7 +93,7 @@ construction_marker = {
 	size = { 50 50 }
 	position = { 0 2 }
 	datacontext = "[NavyConstructionMarker.GetConstruction]"
-	visible = "[NavyConstructionMarker.GetConstruction.GetCountry.IsPlayer]"
+	visible = "[NavyConstructionMarker.GetConstruction.GetLocation.IsPlayerLocation]"
 }
 
 ### CONQUISTADOR CONSTRUCTION
@@ -102,5 +102,5 @@ construction_marker = {
 	size = { 50 50 }
 	position = { 0 2 }
 	datacontext = "[ConquistadorConstructionMarker.GetConstruction]"
-	visible = "[ConquistadorConstructionMarker.GetConstruction.GetCountry.IsPlayer]"
+	visible = "[ConquistadorConstructionMarker.GetConstruction.GetLocation.IsPlayerLocation]"
 }

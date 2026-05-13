@@ -1,13 +1,14 @@
-# Less Map Markers
-Less Map Markers is an EU5 workshop mod that lowers the quality and detail of map markers to improve performance, while still keeping your own important markers visible.
+# Less Map Markers [Performance fix]
 
-`README.md` is the repo-facing description for GitHub.
-`STEAM_PAGE.bbcode` is the Steam Workshop description source.
-`changenotes/0.1.0.bbcode` is the versioned Workshop changenote for `0.1.0`.
+Up to date for game version 1.2.x
 
-## Behavior
+Less Map Markers is a simple performance mod that reduces the visual quality and detail of map markers.
 
-What the mod currently changes:
+Map markers can cost a surprising amount of FPS, especially when there are many of them on screen. This mod tones them down and hides a lot of less important foreign markers, while still keeping your own important markers visible.
+
+## What it does
+
+The mod currently affects:
 
 - City markers
 - Market markers
@@ -18,8 +19,12 @@ What the mod currently changes:
 - Fort and toll markers
 - Supply depot and fort restoration markers
 
-For those marker types, your own markers stay visible and many foreign markers are hidden.
+For these marker types, your own markers stay visible, while many foreign markers are hidden or simplified.
 
-Construction markers are also simplified so they cost less performance, but they still show the correct icon and progress ring.
+Construction markers have also been made lighter on performance. They still show the correct icon and progress ring, just with less visual detail.
 
-The mod only changes how markers are shown. It does not change gameplay.
+## Gameplay
+
+This mod only changes how map markers are displayed.
+
+It does not change gameplay, balance, AI, economy, or mechanics.
