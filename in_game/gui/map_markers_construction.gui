@@ -1,42 +1,10 @@
-template marker_construction_side_color {
-	modify_texture = {
-		using = color_grey_texture
-		alpha = 0.35
-		visible = "[Construction.GetCountry.IsNeutral]"
-	}
-
-	modify_texture = {
-		using = color_red_texture
-		alpha = 0.4
-		visible = "[Player.IsEnemy(Construction.GetCountry)]"
-	}
-
-	modify_texture = {
-		using = color_mid_blue_texture
-		alpha = 1.0
-		visible = "[Construction.GetCountry.IsAllied]"
-	}
-
-	modify_texture = {
-		using = color_light_green_texture
-		alpha = 0.3
-		visible = "[Construction.GetCountry.IsPlayer]"
-	}
-}
-
 types construction_marker_types {
 	type construction_marker = widget {
-		visible = "[Construction.GetCountry.IsPlayer]"
-
 		hbox = {
 			margin_bottom = 2
 			widget = {
 				using = layoutpolicy_expanding
 				allow_outside = yes
-
-				blockoverride "marker_bg_circle_extra_modifiers" {
-					using = marker_construction_side_color
-				}
 
 				piechart = {
 					parentanchor = center
@@ -49,7 +17,7 @@ types construction_marker_types {
 					pieslice_no_highlight = {
 						texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
 						value = "[Construction.GetProgress]"
-						color = "[Construction.GetProgressColor]"
+						color = { 0.3 0.8 0.3 1 }
 						alwaystransparent = yes
 					}
 
@@ -65,58 +33,28 @@ types construction_marker_types {
 					parentanchor = center
 					allow_outside = yes
 					block "button_size" {
-						size = { 55% 55% }
+						size = { 72% 72% }
 					}
 
-					texture = "[GetConstructionIcon(Construction.Self)]"
+					texture = "gfx/interface/buttons/round_button_alt.dds"
 					texture_density = 2
 					onmousehierarchyenter = "[PdxGuiWidget.SetHighlightLocation(Construction.GetLocation)]"
+					onclick = "[ShowConstructionType(Construction.Self)]"
+					onrightclick = "[ShowConstructionCancellationDialog(Construction.Self, '(bool)no')]"
 
 					block "construction_marker_tooltip" {
 						tooltipwidget = {
 							using = Construction_tooltip
-
-							blockoverride "building_owner" {
-								TooltipTextBlock = {
-									visible = "[Not(CanShowConstructionCancellationDialog(Construction.Self))]"
-									blockoverride "text" {
-										text = "[GetConstructionBuildingOwner(Construction.Self)]"
-									}
-								}
-							}
 						}
 					}
-					block "construction_marker_left_action" {
-						action_tooltip = {
-							visible = "[CanShowConstructionType(Construction.Self)]"
-							click_type = left
-							click_mode = single
-							title = "SHOW_CONSTRUCTION_TYPE"
-							on_action = "[ShowConstructionType(Construction.Self)]"
-						}
-					}
-					action_tooltip = {
-						visible = "[CanShowConstructionCancellationDialog(Construction.Self)]"
-						click_type = right
-						click_mode = single
-						title = "CANCEL_CONSTRUCTION"
-						on_action = "[ShowConstructionCancellationDialog(Construction.Self, '(bool)no')]"
-					}
-					action_tooltip = {
-						visible = "[CanShowConstructionCancellationDialog(Construction.Self)]"
-						click_type = right
-						click_mode = single
-						click_modifier = shift
-						title = "CANCEL_CONSTRUCTION_FORCED"
-						on_action = "[ShowConstructionCancellationDialog(Construction.Self, '(bool)yes')]"
-					}
+					block "construction_marker_left_action" {}
 				}
 
-				country_flag_small = {
-					size = { 19 12 }
-					parentanchor = bottom|right
-					visible = "[Construction.GetBuilding.GetType.IsForeign]"
-					datacontext = "[Construction.GetBuilding.GetOwner]"
+				icon = {
+					parentanchor = center
+					size = { 40% 40% }
+					texture = "gfx/interface/icons/unit_types/construction.dds"
+					texture_density = 2
 				}
 				
 				icon = {
@@ -136,25 +74,8 @@ construction_marker = {
 	size = { 50 50 }
 	position = { 0 2 }
 	datacontext = "[BuildingConstructionMarker.GetConstruction]"
+	visible = "[BuildingConstructionMarker.GetConstruction.GetCountry.IsPlayer]"
 	allow_outside = yes
-
-	widget = {
-		visible = "[Construction.IsBuiltByEstate]"
-		size = { 25 25 }
-		parentanchor = bottom|right
-		position = { 10 10 }
-
-		icon = {
-			using = bg_circle_piechart
-			size = { 100% 100% }
-			texture = "[GetEstateIcon(Construction.GetEstateType)]"
-		}
-
-		datacontext = "[Construction.GetEstateType]"
-		tooltipwidget = {
-			using = EstateType_tooltip
-		}
-	}
 }
 
 ### ARMY CONSTRUCTION
@@ -163,6 +84,7 @@ construction_marker = {
 	size = { 50 50 }
 	position = { 0 2 }
 	datacontext = "[ArmyConstructionMarker.GetConstruction]"
+	visible = "[ArmyConstructionMarker.GetConstruction.GetCountry.IsPlayer]"
 }
 
 ### NAVY CONSTRUCTION
@@ -171,6 +93,7 @@ construction_marker = {
 	size = { 50 50 }
 	position = { 0 2 }
 	datacontext = "[NavyConstructionMarker.GetConstruction]"
+	visible = "[NavyConstructionMarker.GetConstruction.GetCountry.IsPlayer]"
 }
 
 ### CONQUISTADOR CONSTRUCTION
@@ -179,4 +102,5 @@ construction_marker = {
 	size = { 50 50 }
 	position = { 0 2 }
 	datacontext = "[ConquistadorConstructionMarker.GetConstruction]"
+	visible = "[ConquistadorConstructionMarker.GetConstruction.GetCountry.IsPlayer]"
 }
