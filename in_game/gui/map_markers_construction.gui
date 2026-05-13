@@ -52,8 +52,8 @@ types construction_marker_types {
 
 				icon = {
 					parentanchor = center
-					size = { 40% 40% }
-					texture = "gfx/interface/icons/unit_types/construction.dds"
+					size = { 55% 55% }
+					texture = "[GetConstructionIcon(Construction.Self)]"
 					texture_density = 2
 				}
 				
