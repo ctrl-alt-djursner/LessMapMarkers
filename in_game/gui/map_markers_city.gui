@@ -244,7 +244,7 @@ widget = {
 						ContextualTooltipType = {
 							blockoverride "title_icon" {
 								icon = {
-									texture = "[GetBuildingIcon(CityMarker.GetLocation.GetBestFortBuilding.GetType)]"
+									texture = "gfx/interface/icons/location_icons/garrison.dds"
 									using = tooltip_title_icon_size
 								}
 							}

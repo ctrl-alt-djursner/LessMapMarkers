@@ -1,7 +1,7 @@
 {
   "name": "Less Map Markers [Performance fix]",
   "id": "lessmapmarkers",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "game_id": "eu5",
   "supported_game_version": "1.2.*",
   "short_description": "Up to date for game version 1.2.x. A simple performance mod that reduces the visual quality and detail of map markers while keeping your own important markers visible.",

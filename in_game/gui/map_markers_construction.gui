@@ -53,7 +53,9 @@ types construction_marker_types {
 				icon = {
 					parentanchor = center
 					size = { 55% 55% }
-					texture = "[GetConstructionIcon(Construction.Self)]"
+					block "construction_marker_icon" {
+						texture = "gfx/interface/icons/buildings/_default.dds"
+					}
 					texture_density = 2
 				}
 				
@@ -76,6 +78,10 @@ construction_marker = {
 	datacontext = "[BuildingConstructionMarker.GetConstruction]"
 	visible = "[BuildingConstructionMarker.GetConstruction.GetLocation.IsPlayerLocation]"
 	allow_outside = yes
+
+	blockoverride "construction_marker_icon" {
+		texture = "[GetConceptTexture(Concatenate('fum_constr_icon_', Construction.GetKey))]"
+	}
 }
 
 ### ARMY CONSTRUCTION
@@ -85,6 +91,10 @@ construction_marker = {
 	position = { 0 2 }
 	datacontext = "[ArmyConstructionMarker.GetConstruction]"
 	visible = "[ArmyConstructionMarker.GetConstruction.GetLocation.IsPlayerLocation]"
+
+	blockoverride "construction_marker_icon" {
+		texture = "gfx/interface/icons/unit_category/army_size.dds"
+	}
 }
 
 ### NAVY CONSTRUCTION
@@ -94,6 +104,10 @@ construction_marker = {
 	position = { 0 2 }
 	datacontext = "[NavyConstructionMarker.GetConstruction]"
 	visible = "[NavyConstructionMarker.GetConstruction.GetLocation.IsPlayerLocation]"
+
+	blockoverride "construction_marker_icon" {
+		texture = "gfx/interface/icons/unit_category/navy_size.dds"
+	}
 }
 
 ### CONQUISTADOR CONSTRUCTION
@@ -103,4 +117,8 @@ construction_marker = {
 	position = { 0 2 }
 	datacontext = "[ConquistadorConstructionMarker.GetConstruction]"
 	visible = "[ConquistadorConstructionMarker.GetConstruction.GetLocation.IsPlayerLocation]"
+
+	blockoverride "construction_marker_icon" {
+		texture = "gfx/interface/icons/unit_actions/conquistador.dds"
+	}
 }

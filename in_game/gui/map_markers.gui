@@ -3446,7 +3446,7 @@ widget = {
 						icon = {
 							size = { 100% 100% }
 							parentanchor = center
-							texture = "[GetConceptTexture('battle')]"
+							texture = "gfx/interface/icons/flat_icons/battle/base.dds"
 							glow = {
 								name = "drop_shadow"
 								glow_radius = 3
@@ -3593,15 +3593,9 @@ container = {
 			icon = {
 				alwaystransparent = no
 				visible = "[Location.HasAnyFort]"
-				texture = "[GetBuildingIcon(Location.GetBestFortBuilding.GetType)]"
+				texture = "gfx/interface/icons/location_icons/garrison.dds"
 				size = { 30 30 }
 				onmousehierarchyenter = "[PdxGuiWidget.SetHighlightFort(Location.Self)]"
-	
-				glow = {
-					glow_radius = 2
-					color = {0.0 0.0 0.0 1.0}
-					alpha = 0.5
-				}
 	
 				tooltipwidget = {
 					using = Garrison_tooltip
@@ -3620,15 +3614,9 @@ container = {
 	datacontext = "[TollMarker.GetLocation]"
 	button = {
 		parentanchor = center
-		texture = "[GetConceptTexture('sound_toll')]"
+		texture = "gfx/interface/icons/modifier_types/sound_toll.dds"
 		size = { 30 30 }
 		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightLocation(Location.GetSoundTollController)]"
-
-		glow = {
-			glow_radius = 2
-			color = {0.0 0.0 0.0 1.0}
-			alpha = 0.5
-		}
 
 		tooltipwidget = {
 			using = SoundTollLocationTooltip
@@ -3734,7 +3722,7 @@ widget = {
 	button = {
 		visible = "[Not(Location.HasSpecificBaseModifier)]"
 		size = { 100% 100% }
-		texture = "[GetGoodsIcon(Location.GetRawMaterial.Self)]"
+		texture = "[GetConceptTexture(Concatenate('fum_goods_icon_', Location.GetRawMaterial.GetKey))]"
 		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightGoods(Location.GetRawMaterial.Self)]"
 		tooltipwidget = {
 			using = SpecificGoodsMarket_tooltip
@@ -3754,11 +3742,6 @@ widget = {
 			size = { 100% 100% }
 			texture = "[Location.GetSpecificBaseModifier.GetModifier.GetIcon]"
 			onmousehierarchyenter = "[PdxGuiWidget.SetHighlightGoods(Location.GetRawMaterial.Self)]"
-			glow = {
-				glow_radius = 3
-				color = {0.0 0.0 0.0 1.0}
-				alpha = 0.5
-			}
 		}
 
 		tooltipwidget = {
@@ -4008,7 +3991,7 @@ widget = {
 	hbox = {
 		button = {
 			size = { 22 22 }
-			texture = "[GetGoodsIcon(ImportExportMarker.GetPossibleItem.GetGoods)]"
+			texture = "[GetConceptTexture(Concatenate('fum_goods_icon_', ImportExportMarker.GetPossibleItem.GetGoods.GetKey))]"
 			datacontext = "[ImportExportMarker.GetPossibleItem.GetGoods]"
 			datacontext = "[ImportExportMarker.GetLocation.GetOwner]"
 			datacontext = "[ImportExportMarker.GetLocation.GetMarket]"
@@ -4080,13 +4063,6 @@ widget = {
 						size = { 14 14 }
 						blockoverride "button_texture" {
 							texture = "gfx/interface/buttons/flats/slider.dds"
-						}
-
-						glow = {
-							name = "drop_shadow"
-							glow_radius = 3
-							color = {0.0 0.0 0.0 1.0}
-							alpha = 0.5
 						}
 					}
 				}
@@ -4261,12 +4237,6 @@ widget = {
 
 		tooltip_enabled = no
 		texture = "gfx/interface/mapitems/hidden_from_land.dds"
-		glow = {
-			name = "drop_shadow"
-			glow_radius = 3
-			color = {0.0 0.0 0.0 1.0}
-			alpha = 0.5  
-		}
 		texture_density = 2
 
 		onclick = "[SelectLocation(BlockedVisionMarker.GetLocation)]"

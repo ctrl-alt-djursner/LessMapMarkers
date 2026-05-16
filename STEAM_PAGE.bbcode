@@ -23,7 +23,7 @@ The mod currently affects:
 
 For these marker types, your own markers stay visible, while many foreign markers are hidden or simplified.
 
-Construction markers have also been made lighter on performance. They still show the correct icon and progress ring, just with less visual detail.
+Construction markers have also been made lighter on performance. Building construction markers use keyed static concept icons so each building keeps its own icon, while army/navy/conquistador construction uses static category icons. The progress ring is preserved without the expensive vanilla per-construction icon lookup. Raw goods/RGO and import/export map markers also use keyed static goods icons instead of per-marker goods icon accessors.
 
 [h2]Gameplay[/h2]
 
